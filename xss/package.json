@@ -1,0 +1,12 @@
+{
+  "name": "xss-study",
+  "version": "1.0.0",
+  "description": "XSS study project",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js"
+  },
+  "dependencies": {
+    "express": "^4.18.2"
+  }
+}
