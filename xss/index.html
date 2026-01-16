@@ -1,8 +1,9 @@
-<html lang="en">
+<html lang="ko">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Document</title>
+    <script src="./purify.js"></script>
   </head>
   <body>
     <h1>XSS 검사용 페이지</h1>
@@ -11,9 +12,35 @@
 
     <script>
       const url = new URL(location.href);
+
+      // Case 1. 적절한 DOM API 사용하기
       const message = url.searchParams.get("message");
       if (message) {
+        // 🚨 Bad
+        // 공격: ?message=<img%20src%20onerror=alert('xss')>
+        // document.querySelector("#result").innerHTML = message;
+
+        // ✅ Good
+        // const textNode = document.createTextNode(message);
+        // document.querySelector("#result").appendChild(textNode);
+
+        // Case 3. DOMPurify 라이브러리 사용
+        const sanitizedMessage = DOMPurify.sanitize(message);
         document.querySelector("#result").innerHTML = message;
+      }
+
+      // Case 2. 스키마 http/https로 한정하기
+      const urlStr = url.searchParams.get("url");
+      if (urlStr) {
+        // 🚨 Bad
+        // 공격: ?url=javascript:alert('xss by javascript')
+        const linkUrl = new URL(urlStr, url.origin);
+        // document.querySelector("#link").href = linkUrl;
+
+        // ✅ Good
+        if (linkUrl.protocol === "http:" || linkUrl.protocol === "https:") {
+          document.querySelector("#link").href = linkUrl;
+        }
       }
     </script>
   </body>
