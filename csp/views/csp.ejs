@@ -8,9 +8,25 @@
     <script nonce="<%= nonce %>">
       // alert("Hello CSP!");
 
-      const script = document.createElement("script");
-      script.src = "/public/csp-test.js";
-      document.body.appendChild(script);
+      // const script = document.createElement("script");
+      // script.src = "/public/csp-test.js";
+      // document.body.appendChild(script);
+
+      if (window.trustedTypes && trustedTypes.createPolicy) {
+        // policy 함수 정의
+        const policy = trustedTypes.createPolicy("script-url", {
+          createScriptURL: (str) => {
+            const url = new URL(str, location.origin);
+            if (url.origin !== location.origin) {
+              throw new Error("교차 출처는 허용되지 않습니다.");
+            }
+            return url;
+          },
+        });
+        const script = document.createElement("script");
+        script.src = policy.createScriptURL("/public/csp-test.js");
+        document.body.appendChild(script);
+      }
     </script>
   </body>
 </html>

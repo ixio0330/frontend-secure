@@ -14,7 +14,8 @@ app.get("/csp", (req, res) => {
     "Content-Security-Policy",
     `script-src 'nonce-${nonceValue}' 'strict-dynamic';` + // 동적 스크립트 생성해서 실행
       "object-src 'none';" +
-      "base-uri 'none';",
+      "base-uri 'none';" +
+      "require-trusted-types-for 'script';",
   );
   res.render("csp", { nonce: nonceValue });
 });
