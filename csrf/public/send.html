@@ -5,7 +5,7 @@
     <title>CSRF 실습</title>
   </head>
   <body>
-    <form action="/send" method="post">
+    <form id="send" action="/send" method="post">
       <div>
         <label for="to">수신인: </label>
         <input type="text" name="to" id="to" />
@@ -18,5 +18,18 @@
         <button type="submit">로그인</button>
       </div>
     </form>
+
+    <script>
+      const token = document.cookie
+        .split("; ")
+        .find((row) => row.startsWith("csrf_token"))
+        .split("=")[1];
+
+      const el = document.createElement("input");
+      el.type = "hidden";
+      el.name = "csrf_token";
+      el.value = token;
+      document.getElementById("send").appendChild(el);
+    </script>
   </body>
 </html>

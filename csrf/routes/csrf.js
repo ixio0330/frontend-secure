@@ -3,6 +3,8 @@ const session = require("express-session");
 const cookieParser = require("cookie-parser");
 const router = express.Router();
 
+const crypto = require("crypto");
+
 router.use(
   session({
     secret: "session",
@@ -31,6 +33,12 @@ router.post("/login", (req, res) => {
 
   sessionData = req.session;
   sessionData.username = username;
+
+  const token = crypto.randomUUID();
+  res.cookie("csrf_token", token, {
+    secure: true,
+  });
+
   res.redirect("/send.html");
 });
 
@@ -41,6 +49,12 @@ router.post("/send", (req, res) => {
   ) {
     res.status(403);
     res.send("로그인이 필요합니다");
+    return;
+  }
+
+  if (req.cookies["csrf_token"] !== req.body["csrf_token"]) {
+    res.status(400);
+    res.send("잘못된 요청입니다.");
     return;
   }
 
