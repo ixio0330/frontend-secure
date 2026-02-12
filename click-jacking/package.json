@@ -4,7 +4,8 @@
   "description": "XSS study project",
   "main": "server.js",
   "scripts": {
-    "start": "node server.js"
+    "start": "node server.js",
+    "start:target": "node target-server.js"
   },
   "dependencies": {
     "ejs": "^4.0.1",
