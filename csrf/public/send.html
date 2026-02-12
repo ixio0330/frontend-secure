@@ -1,0 +1,22 @@
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>CSRF 실습</title>
+  </head>
+  <body>
+    <form action="/send" method="post">
+      <div>
+        <label for="to">수신인: </label>
+        <input type="text" name="to" id="to" />
+      </div>
+      <div>
+        <label for="amount">금액: </label>
+        <input type="number" name="amount" id="amount" />
+      </div>
+      <div>
+        <button type="submit">로그인</button>
+      </div>
+    </form>
+  </body>
+</html>
