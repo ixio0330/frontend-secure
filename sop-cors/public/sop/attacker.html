@@ -1,0 +1,26 @@
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>공격자 사이트</title>
+    <script>
+      function load() {
+        const userInfo = frm.document.querySelector("#user_info");
+        console.log(userInfo.textContent);
+      }
+    </script>
+  </head>
+  <body>
+    <div>
+      <!-- 사용자를 유인하기 위한 피싱 페이지 콘텐츠 -->
+    </div>
+
+    <iframe
+      name="frm"
+      onload="load()"
+      src="http://localhost:3000/sop/user.html"
+      width="80%"
+      frameborder="0"
+    ></iframe>
+  </body>
+</html>
