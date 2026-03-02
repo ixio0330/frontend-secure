@@ -1,0 +1,14 @@
+{
+  "name": "click-jacking-study",
+  "version": "1.0.0",
+  "description": "XSS study project",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js",
+    "start:target": "node target-server.js"
+  },
+  "dependencies": {
+    "ejs": "^4.0.1",
+    "express": "^4.18.2"
+  }
+}
